@@ -3,6 +3,7 @@
 namespace App\Events;
 
 use App\Models\Transaction;
+use App\Models\User;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Queue\SerializesModels;
@@ -15,11 +16,15 @@ class TransactionCreated implements ShouldBroadcast
 
     public $transaction;
     public $userId;
+    public $balance;
 
     public function __construct(Transaction $transaction, $user)
     {
         $this->transaction = $transaction->load('sender', 'receiver');
         $this->userId = $user->id;
+
+        // compute balance fresh for the user
+        $this->balance = User::find($user->id)->balance;
     }
 
     public function broadcastOn()
@@ -47,7 +52,8 @@ class TransactionCreated implements ShouldBroadcast
                 ],
                 'amount' => $this->transaction->amount,
                 'created_at' => $this->transaction->created_at,
-            ]
+            ],
+            'balance' => $this->balance, 
         ];
     }
 }

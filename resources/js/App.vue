@@ -29,13 +29,11 @@
         </div>
 
         <!-- Transactions List -->
-        <!-- <TransactionsList :user-id="userId" :transactions="transactions" /> -->
-         <TransactionsList
-        :user-id="userId"
-        :transactions="transactions"
-        @balance="balance = $event"
+        <TransactionsList
+          :user-id="userId"
+          :transactions="transactions"
+          @balance="balance = $event"
         />
-
       </div>
     </div>
   </div>
@@ -43,11 +41,11 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import axios from 'axios'
+import api from './boot/axios'  
+import { echo } from './boot/echo'
 import LoginForm from './components/LoginForm.vue'
 import TransferForm from './components/TransferForm.vue'
 import TransactionsList from './components/TransactionsList.vue'
-import { echo } from './boot/echo'
 
 const token = ref(localStorage.getItem('token'))
 // Ensure userId is always a string for props
@@ -58,9 +56,7 @@ const transactions = ref([])
 async function fetchInitialData() {
   if (!token.value) return
   try {
-    const res = await axios.get('/transactions', {
-      headers: { Authorization: `Bearer ${token.value}` }
-    })
+    const res = await api.get('/transactions')
     balance.value = res.data.balance
     transactions.value = res.data.transactions
   } catch (e) {
@@ -79,10 +75,7 @@ function handleLogin({ token: t, user }) {
 
 async function logout() {
   try {
-    const t = localStorage.getItem('token')
-    if (t) {
-      await axios.post('/logout', {}, { headers: { Authorization: `Bearer ${t}` } })
-    }
+    await api.post('/logout') 
   } catch (e) {
     console.error('Logout failed', e)
   } finally {

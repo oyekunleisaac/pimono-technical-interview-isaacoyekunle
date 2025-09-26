@@ -41,7 +41,8 @@
 
 <script setup>
 import { ref, watch, onMounted, onUnmounted } from 'vue'
-import axios from 'axios'
+import api from '../boot/axios'
+import { echo } from '../boot/echo'   // ✅ import Echo instance
 
 const props = defineProps({
   userId: { type: String, required: true },
@@ -56,10 +57,7 @@ let pusherChannel = null
 
 async function fetchTransactions() {
   try {
-    const token = localStorage.getItem('token')
-    const res = await axios.get('/transactions', {
-      headers: { Authorization: `Bearer ${token}` }
-    })
+    const res = await api.get('/transactions') 
     transactions.value = res.data.transactions
     emit('balance', res.data.balance) 
   } catch (err) {
@@ -74,17 +72,20 @@ function setupPusher() {
   try {
     pusherChannel = echo.private(`transactions.${props.userId}`)
       .listen('TransactionCreated', (e) => {
+        console.log('🔥 Received TransactionCreated via Pusher:', e) 
+
         const newTx = e.transaction
         if (!transactions.value.find(t => t.id === newTx.id)) {
           transactions.value.unshift(newTx)
         }
         emit('balance', e.balance) 
-    })
+      })
   } catch (err) {
     console.warn('Pusher setup failed. Using silent reload.', err)
     fetchTransactions()
   }
 }
+
 
 // Silent polling as fallback
 function startSilentReload() {
@@ -103,7 +104,9 @@ onMounted(() => {
 
 onUnmounted(() => {
   stopSilentReload()
-  if (pusherChannel) pusherChannel.stopListening('TransactionCreated')
+  if (pusherChannel) {
+    pusherChannel.stopListening('TransactionCreated')
+  }
 })
 
 watch(() => props.refresh, fetchTransactions)
