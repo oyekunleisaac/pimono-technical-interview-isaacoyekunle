@@ -4,31 +4,33 @@
     <div v-if="!token" class="w-full flex justify-center items-center min-h-screen">
       <div class="w-full max-w-md">
         <h1 class="text-4xl font-bold mb-8 text-center text-indigo-600">
-          Mini Wallet
+          <br>
         </h1>
         <LoginForm @logged-in="handleLogin" />
       </div>
     </div>
 
-    <!-- If logged in, show wallet UI -->
-    <div v-else class="wallet-container">
-      <h1 class="text-3xl font-bold mb-6 text-center text-indigo-600">
-        Mini Wallet
-      </h1>
+    <!-- If logged in, show wallet UI centered -->
+    <div v-else class="w-full flex justify-center items-center min-h-screen">
+      <div class="wallet-container w-full max-w-md">
+        <h1 class="text-3xl font-bold mb-6 text-center text-indigo-600">
+          Pimono Mini Wallet
+        </h1>
 
-      <div class="wallet-header">
-        <p class="user-info">User ID: {{ userId }}</p>
-        <p class="user-info">Balance: {{ balance !== null ? balance : '...' }}</p>
-        <button @click="logout" class="logout-btn">Logout</button>
+        <div class="wallet-header">
+          <p class="user-info">User ID: {{ userId }}</p>
+          <p class="user-info">Balance: {{ balance !== null ? balance : '...' }}</p>
+          <button @click="logout" class="logout-btn">Logout</button>
+        </div>
+
+        <!-- Transfer Form -->
+        <div class="transfer-section">
+          <TransferForm :user-id="userId" @success="handleTransactionSuccess" />
+        </div>
+
+        <!-- Transactions List -->
+        <TransactionsList :user-id="userId" :transactions="transactions" />
       </div>
-
-      <!-- Transfer Form -->
-      <div class="transfer-section">
-        <TransferForm :user-id="userId" @success="handleTransactionSuccess" />
-      </div>
-
-      <!-- Transactions List -->
-      <TransactionsList :user-id="userId" :transactions="transactions" />
     </div>
   </div>
 </template>

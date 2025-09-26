@@ -1,6 +1,6 @@
 <template>
   <form @submit.prevent="login" class="login-form">
-    <h2 class="form-title">Login</h2>
+    <h2 class="form-title">Pimono Mini Wallet Login</h2>
     
     <div class="form-content">
       <div class="form-group">

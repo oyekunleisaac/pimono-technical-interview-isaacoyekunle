@@ -60,10 +60,6 @@ public function index()
 }
 
 
-
-    /**
-     * Create a new transaction (transfer money).
-     */
 public function store(Request $request)
 {
     $validated = $request->validate([
