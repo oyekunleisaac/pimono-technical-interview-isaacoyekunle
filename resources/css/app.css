@@ -1,0 +1,553 @@
+/* Reset and base styles */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* App Title Styles */
+.app-title {
+  font-size: 42px;
+  font-weight: 700;
+  color: #4f46e5;
+  text-align: center;
+  margin-bottom: 32px;
+  letter-spacing: -0.025em;
+}
+
+/* Login Form Container */
+.login-form {
+  width: 90%;
+  max-width: 800px;
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 60px 80px;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.12),
+    0 2px 8px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e2e8f0;
+  position: relative;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.login-form::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, #3b82f6, #1e40af, #1d4ed8);
+}
+
+/* Form Title */
+.form-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #1e293b;
+  text-align: center;
+  margin: 0 0 40px 0;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+/* Form Content Wrapper */
+.form-content {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* Form Groups */
+.form-group {
+  margin-bottom: 32px;
+}
+
+/* Labels */
+.form-label {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #374151;
+  letter-spacing: 0.01em;
+}
+
+/* Input Fields */
+.form-input {
+  width: 100%;
+  padding: 18px 20px;
+  font-size: 16px;
+  color: #1f2937;
+  background: #ffffff;
+  border: 2px solid #e5e7eb;
+  border-radius: 14px;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  line-height: 1.5;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+}
+
+.form-input:hover:not(:focus) {
+  border-color: #d1d5db;
+}
+
+.form-input::placeholder {
+  color: #9ca3af;
+}
+
+/* Submit Button */
+.submit-btn {
+  width: 100%;
+  padding: 20px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #ffffff;
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  letter-spacing: 0.02em;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
+  margin-top: 12px;
+}
+
+.submit-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+  transform: translateY(-2px);
+}
+
+.submit-btn:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
+}
+
+.submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Error Message */
+.error-message {
+  margin-top: 24px;
+  padding: 16px 20px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 12px;
+  color: #dc2626;
+  font-size: 15px;
+  text-align: center;
+  font-weight: 500;
+}
+
+/* Loading State */
+.loading {
+  position: relative;
+  color: transparent;
+}
+
+.loading::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  margin: auto;
+  border: 2px solid transparent;
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes spin {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Tablet Styles */
+@media (max-width: 1024px) {
+  .login-form {
+    max-width: 600px;
+    padding: 50px 60px;
+  }
+  
+  .form-title {
+    font-size: 32px;
+    margin-bottom: 40px;
+  }
+  
+  .form-content {
+    max-width: 100%;
+  }
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .app-title {
+    font-size: 36px;
+    margin-bottom: 24px;
+  }
+  
+  .login-form {
+    width: 100%;
+    max-width: 100%;
+    padding: 40px 32px;
+    border-radius: 20px;
+    margin: 0;
+  }
+  
+  .form-title {
+    font-size: 28px;
+    margin-bottom: 32px;
+  }
+  
+  .form-group {
+    margin-bottom: 24px;
+  }
+  
+  .form-label {
+    font-size: 15px;
+    margin-bottom: 10px;
+  }
+  
+  .form-input {
+    padding: 16px 18px;
+    font-size: 16px;
+    border-radius: 12px;
+  }
+  
+  .submit-btn {
+    padding: 18px;
+    font-size: 17px;
+    border-radius: 12px;
+  }
+  
+  .error-message {
+    padding: 14px 18px;
+    font-size: 14px;
+  }
+}
+
+/* Small Mobile Styles */
+@media (max-width: 480px) {
+  .app-title {
+    font-size: 32px;
+    margin-bottom: 20px;
+  }
+  
+  .login-form {
+    padding: 32px 24px;
+    border-radius: 16px;
+  }
+  
+  .form-title {
+    font-size: 26px;
+    margin-bottom: 28px;
+  }
+  
+  .form-input {
+    padding: 14px 16px;
+  }
+  
+  .submit-btn {
+    padding: 16px;
+    font-size: 16px;
+  }
+}
+
+/* Focus visible for accessibility */
+.form-input:focus-visible,
+.submit-btn:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Wallet Dashboard Styles */
+.wallet-container {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 32px;
+  box-shadow: 
+    0 4px 16px rgba(0, 0, 0, 0.08),
+    0 1px 4px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e5e7eb;
+}
+
+.wallet-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #f1f5f9;
+}
+
+.user-info {
+  font-size: 15px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.logout-btn {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.25);
+}
+
+.logout-btn:hover {
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.35);
+}
+
+/* Transfer Form Styles */
+.transfer-section {
+  margin-bottom: 40px;
+}
+
+.section-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 24px;
+  letter-spacing: -0.01em;
+}
+
+.transfer-form {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 28px;
+}
+
+.transfer-form-group {
+  margin-bottom: 20px;
+}
+
+.transfer-label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.transfer-input {
+  width: 100%;
+  padding: 14px 16px;
+  font-size: 15px;
+  color: #1f2937;
+  background: #ffffff;
+  border: 2px solid #e5e7eb;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.transfer-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.transfer-input:hover:not(:focus) {
+  border-color: #d1d5db;
+}
+
+.transfer-input::placeholder {
+  color: #9ca3af;
+}
+
+.transfer-btn {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  color: white;
+  padding: 16px 24px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.25);
+  margin-top: 8px;
+}
+
+.transfer-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.35);
+}
+
+.transfer-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Transaction List Styles */
+.transactions-section {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 28px;
+}
+
+.transactions-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 24px;
+  letter-spacing: -0.01em;
+}
+
+.loading-state {
+  text-align: center;
+  color: #64748b;
+  font-size: 15px;
+  padding: 40px 20px;
+}
+
+.empty-state {
+  text-align: center;
+  color: #64748b;
+  font-size: 15px;
+  padding: 40px 20px;
+  background: #ffffff;
+  border-radius: 12px;
+  border: 2px dashed #d1d5db;
+}
+
+.transactions-list {
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  overflow: hidden;
+}
+
+.transaction-item {
+  padding: 20px 24px;
+  border-bottom: 1px solid #f1f5f9;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.2s ease;
+}
+
+.transaction-item:last-child {
+  border-bottom: none;
+}
+
+.transaction-item:hover {
+  background: #f8fafc;
+}
+
+.transaction-details {
+  font-size: 15px;
+  color: #374151;
+}
+
+.transaction-amount {
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.amount-sent {
+  color: #ef4444;
+}
+
+.amount-received {
+  color: #10b981;
+}
+
+/* Success and Error Messages */
+.success-message {
+  margin-top: 16px;
+  padding: 12px 16px;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 8px;
+  color: #166534;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.error-message-transfer {
+  margin-top: 16px;
+  padding: 12px 16px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  color: #dc2626;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Responsive Design for Wallet Components */
+@media (max-width: 768px) {
+  .wallet-container {
+    padding: 24px 20px;
+    border-radius: 16px;
+  }
+  
+  .wallet-header {
+    flex-direction: column;
+    gap: 16px;
+    align-items: stretch;
+    margin-bottom: 24px;
+  }
+  
+  .logout-btn {
+    align-self: center;
+    width: fit-content;
+  }
+  
+  .section-title {
+    font-size: 20px;
+  }
+  
+  .transactions-title {
+    font-size: 20px;
+  }
+  
+  .transfer-form {
+    padding: 20px;
+    border-radius: 12px;
+  }
+  
+  .transactions-section {
+    padding: 20px;
+    border-radius: 12px;
+  }
+  
+  .transaction-item {
+    padding: 16px 20px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  .transaction-amount {
+    align-self: flex-end;
+  }
+}
