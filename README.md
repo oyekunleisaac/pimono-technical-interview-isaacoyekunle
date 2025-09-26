@@ -40,7 +40,7 @@ isaacoyekunle@ISAACs-MacBook-Air pimono-mini-wallet %
 
 ```bash
 https://github.com/oyekunleisaac/pimono-technical-interview-isaacoyekunle.git
-cd mini-wallet
+cd pimono-mini-wallet
 ```
 
 2. Install backend dependencies:
