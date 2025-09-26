@@ -29,7 +29,13 @@
         </div>
 
         <!-- Transactions List -->
-        <TransactionsList :user-id="userId" :transactions="transactions" />
+        <!-- <TransactionsList :user-id="userId" :transactions="transactions" /> -->
+         <TransactionsList
+        :user-id="userId"
+        :transactions="transactions"
+        @balance="balance = $event"
+        />
+
       </div>
     </div>
   </div>
