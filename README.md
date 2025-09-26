@@ -149,7 +149,7 @@ By default, the frontend runs on `http://localhost:5173`.
 ## Notes
 
 * Default seeded user credentials:
-Users
+* Users
 Email: isaac@pimono.ai
 Password: password
 

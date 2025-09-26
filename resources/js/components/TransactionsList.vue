@@ -42,19 +42,18 @@
 <script setup>
 import { ref, watch, onMounted, onUnmounted } from 'vue'
 import axios from 'axios'
-import { echo } from '../boot/echo'
 
 const props = defineProps({
   userId: { type: String, required: true },
   refresh: { type: Number, default: 0 }
 })
+const emit = defineEmits(['balance'])
 
 const transactions = ref([])
 const loading = ref(false)
 let silentInterval = null
 let pusherChannel = null
 
-// Fetch transactions
 async function fetchTransactions() {
   try {
     const token = localStorage.getItem('token')
@@ -62,6 +61,7 @@ async function fetchTransactions() {
       headers: { Authorization: `Bearer ${token}` }
     })
     transactions.value = res.data.transactions
+    emit('balance', res.data.balance) 
   } catch (err) {
     console.error('Failed to fetch transactions', err)
   }
@@ -78,12 +78,7 @@ function setupPusher() {
         if (!transactions.value.find(t => t.id === newTx.id)) {
           transactions.value.unshift(newTx)
         }
-      })
-
-    // Handle Pusher subscription error (retry silently)
-    pusherChannel.subscriptionError(() => {
-      console.warn('Pusher subscription failed. Falling back to silent reload.')
-      fetchTransactions()
+        emit('balance', e.balance) 
     })
   } catch (err) {
     console.warn('Pusher setup failed. Using silent reload.', err)
@@ -93,7 +88,7 @@ function setupPusher() {
 
 // Silent polling as fallback
 function startSilentReload() {
-  silentInterval = setInterval(fetchTransactions, 5000)
+  silentInterval = setInterval(fetchTransactions, 1000)
 }
 
 function stopSilentReload() {
@@ -101,9 +96,9 @@ function stopSilentReload() {
 }
 
 onMounted(() => {
-  fetchTransactions()      
-  setupPusher()            
-  startSilentReload()      
+  fetchTransactions()
+  setupPusher()
+  startSilentReload()
 })
 
 onUnmounted(() => {
@@ -111,6 +106,5 @@ onUnmounted(() => {
   if (pusherChannel) pusherChannel.stopListening('TransactionCreated')
 })
 
-// Refetch if parent triggers refresh
 watch(() => props.refresh, fetchTransactions)
 </script>
