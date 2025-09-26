@@ -101,9 +101,9 @@ function stopSilentReload() {
 }
 
 onMounted(() => {
-  fetchTransactions()      // Initial load
-  setupPusher()            // Real-time updates
-  startSilentReload()      // Fallback reload
+  fetchTransactions()      
+  setupPusher()            
+  startSilentReload()      
 })
 
 onUnmounted(() => {
