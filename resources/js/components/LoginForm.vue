@@ -44,7 +44,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import axios from 'axios'
+import api from '../boot/axios'
 
 const email = ref('')
 const password = ref('')
@@ -59,7 +59,7 @@ async function login() {
   loading.value = true
 
   try {
-    const res = await axios.post('/login', {
+    const res = await api.post('/login', {
       email: email.value,
       password: password.value,
     })

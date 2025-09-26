@@ -4,13 +4,7 @@ import Pusher from 'pusher-js'
 window.Pusher = Pusher
 Pusher.logToConsole = true
 
-// Get API base URL from environment
 const API_BASE = import.meta.env.VITE_API_BASE_URL.replace('/api', '')
-
-// Function to get token from localStorage
-function getToken() {
-  return localStorage.getItem('token')
-}
 
 export const echo = new Echo({
   broadcaster: 'pusher',
@@ -22,10 +16,24 @@ export const echo = new Echo({
   forceTLS: true,
   enabledTransports: ['ws', 'wss'],
   authEndpoint: `${API_BASE}/broadcasting/auth`,
-  auth: {
-    headers: {
-      // Bearer token authorization for private channels
-      Authorization: `Bearer ${getToken()}`,
-    },
+  authorizer: (channel) => {
+    return {
+      authorize: (socketId, callback) => {
+        axios.post(
+          `${API_BASE}/broadcasting/auth`,
+          {
+            socket_id: socketId,
+            channel_name: channel.name,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+          }
+        )
+        .then(response => callback(false, response.data))
+        .catch(error => callback(true, error))
+      },
+    }
   },
 })

@@ -45,7 +45,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import axios from 'axios'
+import api from '../boot/axios' 
 
 const receiverId = ref('')
 const amount = ref('')
@@ -53,7 +53,6 @@ const loading = ref(false)
 const error = ref(null)
 const success = ref(false)
 
-// Emit event for App.vue if you want
 const emit = defineEmits(['success'])
 
 async function transfer() {
@@ -62,27 +61,21 @@ async function transfer() {
   loading.value = true
 
   try {
-    const token = localStorage.getItem('token')
-    const res = await axios.post(
-      '/transactions',
-      { receiver_id: receiverId.value, amount: amount.value },
-      { headers: { Authorization: `Bearer ${token}` } }
-    )
+    const res = await api.post('/transactions', {
+      receiver_id: receiverId.value,
+      amount: amount.value,
+    })
 
     success.value = true
     receiverId.value = ''
     amount.value = ''
     
-    // Automatically hide success message after 3 seconds
+    // Auto-hide success message after 3s
     setTimeout(() => {
       success.value = false
     }, 3000)
     
-    // Emit event only if App.vue or other components need it
     emit('success', res.data)
-
-    // Optionally update balance immediately if App.vue listens
-    // e.g., you can handle it via Pusher instead for real-time
   } catch (err) {
     error.value = err?.response?.data?.message || 'Transaction failed'
   } finally {

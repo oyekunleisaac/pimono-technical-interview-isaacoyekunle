@@ -123,6 +123,23 @@ php artisan serve
 
 By default, Laravel runs on `http://127.0.0.1:8001`.
 
+
+## Queue Worker (Required for Real-Time Broadcasting)
+
+Laravel uses queues to process broadcasting events.  
+**Kindly run the queue worker for real-time updates to work:**
+
+```bash
+php artisan queue:work
+```
+
+- In production, use a process manager like [Supervisor](https://laravel.com/docs/10.x/queues#supervisor-configuration) to keep the queue worker running.
+- If the queue worker is not running, real-time events (Pusher) will not broadcast but the fallback polling can help in this case.
+
+### Example: Pusher Dashboard (Real-Time Events)
+
+![Pusher Dashboard](assets/pusher-dashboard.png)
+
 ### Frontend (Vite + Vue 3)
 
 ```bash
