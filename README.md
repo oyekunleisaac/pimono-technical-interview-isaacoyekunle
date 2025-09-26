@@ -121,7 +121,7 @@ This will create necessary tables and seed sample users & transactions.
 php artisan serve
 ```
 
-The Laravel app was run on `http://127.0.0.1:8001` if you are on a different route, update .env.
+The Laravel app is running on http://127.0.0.1:8001. If you are using a different URL, update your .env file accordingly
 
 
 ## Queue Worker (Required for Real-Time Broadcasting)
